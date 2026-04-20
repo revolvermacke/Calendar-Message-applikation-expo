@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "backend_presentation_llm.Controllers.AIController",
+    "Method": "GenerateMessage",
+    "RelativePath": "api/AI/generate-meesage",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "backend_presentation_llm.Dtos.GenerateMessageRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
