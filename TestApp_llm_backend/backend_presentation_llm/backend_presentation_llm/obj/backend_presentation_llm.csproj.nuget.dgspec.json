@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Maxna\\Desktop\\TestApp_llm_backend\\backend_presentation_llm\\backend_presentation_llm\\backend_presentation_llm.csproj": {}
+    "C:\\Users\\Maxna\\Desktop\\TestApp\\TestApp_llm_backend\\backend_presentation_llm\\backend_presentation_llm\\backend_presentation_llm.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Maxna\\Desktop\\TestApp_llm_backend\\backend_presentation_llm\\backend_presentation_llm\\backend_presentation_llm.csproj": {
+    "C:\\Users\\Maxna\\Desktop\\TestApp\\TestApp_llm_backend\\backend_presentation_llm\\backend_presentation_llm\\backend_presentation_llm.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Maxna\\Desktop\\TestApp_llm_backend\\backend_presentation_llm\\backend_presentation_llm\\backend_presentation_llm.csproj",
+        "projectUniqueName": "C:\\Users\\Maxna\\Desktop\\TestApp\\TestApp_llm_backend\\backend_presentation_llm\\backend_presentation_llm\\backend_presentation_llm.csproj",
         "projectName": "backend_presentation_llm",
-        "projectPath": "C:\\Users\\Maxna\\Desktop\\TestApp_llm_backend\\backend_presentation_llm\\backend_presentation_llm\\backend_presentation_llm.csproj",
+        "projectPath": "C:\\Users\\Maxna\\Desktop\\TestApp\\TestApp_llm_backend\\backend_presentation_llm\\backend_presentation_llm\\backend_presentation_llm.csproj",
         "packagesPath": "C:\\Users\\Maxna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Maxna\\Desktop\\TestApp_llm_backend\\backend_presentation_llm\\backend_presentation_llm\\obj\\",
+        "outputPath": "C:\\Users\\Maxna\\Desktop\\TestApp\\TestApp_llm_backend\\backend_presentation_llm\\backend_presentation_llm\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "OpenAI": {
+              "target": "Package",
+              "version": "[2.10.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"

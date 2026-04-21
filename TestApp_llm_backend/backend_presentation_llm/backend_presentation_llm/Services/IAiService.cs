@@ -4,5 +4,5 @@ namespace backend_presentation_llm.Services;
 
 public interface IAiService
 {
-    Task<string> GenerateMessageAsync(List<CalendarEventDto> events);
+    Task<SummaryDto> GenerateMessageAsync(List<CalendarEventDto> events);
 }

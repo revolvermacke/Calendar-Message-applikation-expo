@@ -1,34 +1,85 @@
 ﻿using backend_presentation_llm.Dtos;
+using OpenAI;
+using OpenAI.Chat;
+using System.Text;
+using System.Text.Json;
 
 namespace backend_presentation_llm.Services;
 
 public class AiService : IAiService
 {
-    public async Task<string> GenerateMessageAsync(List<CalendarEventDto> events)
+    private readonly ChatClient _chatClient;
+
+    public AiService(IConfiguration config)
+    {
+        var apiKey = config["OpenAI:ApiKey"];
+        var client = new OpenAIClient(apiKey);
+        _chatClient = client.GetChatClient("gpt-4o-mini");
+        Console.WriteLine($"API KEY: {apiKey}");
+    }
+    public async Task<SummaryDto> GenerateMessageAsync(List<CalendarEventDto> events)
     {
         var prompt = BuildPrompt(events);
 
-        var response = await CallLlm(prompt);
-
-        return response.ToString();
+        var result = await CallLlm(prompt);
+        return new SummaryDto { Summary = result };
     }
 
     private string BuildPrompt(List<CalendarEventDto> events)
     {
-        var prompt = "You are a helpful and kind assistant that summarizes calendar events. Here are the events:\n\n";
-        foreach (var calendarEvent in events)
+        var sb = new StringBuilder();
+
+        foreach (var e in events)
         {
-            prompt += $"Title: {calendarEvent.Title}\n";
-            prompt += $"Time: {calendarEvent.Time}\n";
+            sb.AppendLine($"Title: {e.Title}");
+            sb.AppendLine($"Time: {e.Time}");
         }
-        prompt += "Please provide a summary of these events.";
-        return prompt;
+
+        return sb.ToString();
     }
 
     private async Task<string> CallLlm(string prompt)
     {
-        // Simulate calling a language model API
-        await Task.Delay(1000); // Simulate network delay
-        return "This is a summary of the events.";
+        var messages = new ChatMessage[]
+        {
+            ChatMessage.CreateSystemMessage(
+            @"You summarize calendar events.
+
+            Rules:
+            - Be concise (max 5 sentences)
+            - Do not invent information
+            - Have a friendly tone
+
+            Return JSON:
+            {
+              ""summary"": string
+            }"),
+            ChatMessage.CreateUserMessage(prompt)
+        };
+
+        var options = new ChatCompletionOptions
+        {
+            Temperature = 0.2f
+        };
+
+        var response = await _chatClient.CompleteChatAsync(messages, options);
+
+        var json = response.Value.Content.FirstOrDefault()?.Text ?? "";
+
+        json = json.Replace("```json", "")
+                   .Replace("```", "")
+                   .Trim();
+        try
+        {
+            var result = JsonSerializer.Deserialize<SummaryDto>(json, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+            return result?.Summary ?? "";
+        }
+        catch
+        {
+            return "Could not generate summary.";
+        }
     }
 }

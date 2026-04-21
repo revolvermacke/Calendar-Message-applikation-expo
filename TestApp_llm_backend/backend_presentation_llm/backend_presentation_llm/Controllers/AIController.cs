@@ -15,6 +15,6 @@ public class AIController(IAiService aiService) : ControllerBase
     {
         var message = await _aiService.GenerateMessageAsync(req.Events);
 
-        return Ok(new { message });
+        return Ok(message);
     }
 }
