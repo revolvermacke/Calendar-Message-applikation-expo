@@ -43,11 +43,12 @@ export function CalendarScreen({ isActive }: CalendarScreenProps) {
       addNotice({
         id: Date.now().toString(),
         title: "AI Genererad notis",
-        description: data.message,
+        description: data.summary,
         timestamp: new Date().toLocaleString(),
       });
+      console.log(data);
 
-      setAiMessage(data.message);
+      setAiMessage(data.summary);
     } catch (err) {
       console.error(err);
     } finally {
@@ -79,7 +80,9 @@ export function CalendarScreen({ isActive }: CalendarScreenProps) {
 
       <Pressable
         className="mt-4 rounded-chip bg-surface-glassStrong px-4 py-3"
-        onPress={handleGenerate}
+        onPress={() => {
+          handleGenerate();
+        }}
       >
         <Text className="text-sm font-semibold text-text-primary">
           {isGenerating ? "Genererar..." : "Generera AI-meddelande"}
