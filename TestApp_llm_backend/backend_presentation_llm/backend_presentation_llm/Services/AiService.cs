@@ -15,7 +15,6 @@ public class AiService : IAiService
         var apiKey = config["OpenAI:ApiKey"];
         var client = new OpenAIClient(apiKey);
         _chatClient = client.GetChatClient("gpt-4o-mini");
-        Console.WriteLine($"API KEY: {apiKey}");
     }
     public async Task<SummaryDto> GenerateMessageAsync(List<CalendarEventDto> events)
     {
